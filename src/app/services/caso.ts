@@ -9,7 +9,7 @@ export class Caso {
   private readonly http = inject(HttpClient);
 
   private readonly apiUrl =
-    'http://localhost:8080/api/casos';
+    'https://sistema-de-adicciones-api-rest.onrender.com/api/casos';
 
   obtenerCasos() {
     return this.http.get<any[]>(

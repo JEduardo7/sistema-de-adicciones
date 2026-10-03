@@ -60,7 +60,7 @@ export class Usuarios implements OnInit {
 
     this.http
       .get<any[]>(
-        'http://localhost:8080/api/usuarios'
+        'https://sistema-de-adicciones-api-rest.onrender.com/api/usuarios'
       )
       .subscribe({
 

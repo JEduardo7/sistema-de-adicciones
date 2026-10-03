@@ -9,7 +9,7 @@ export class Seguimiento {
   private readonly http = inject(HttpClient);
 
   private readonly apiUrl =
-    'http://localhost:8080/api/seguimientos';
+    'https://sistema-de-adicciones-api-rest.onrender.com/api/seguimientos';
 
   obtenerSeguimientosPorCaso(casoId: number) {
 
