@@ -1,0 +1,196 @@
+<div class="login-page">
+
+  <!-- Fondo interactivo de partículas -->
+  <canvas
+    #particleCanvas
+    class="particle-canvas"
+    aria-hidden="true">
+  </canvas>
+
+  <!-- Contenido principal -->
+  <div class="login-wrapper">
+
+    <div class="login-card">
+
+      <!-- PANEL IZQUIERDO -->
+      <section class="brand-panel">
+
+        <div class="brand-content">
+
+          <div class="logo">
+            SA
+          </div>
+
+          <h1>
+            Sistema de Adicciones
+          </h1>
+
+          <p class="brand-subtitle">
+            Gestión y seguimiento de casos
+          </p>
+
+          <div class="brand-line"></div>
+
+          <p class="brand-description">
+            Plataforma para la gestión, seguimiento y atención
+            organizada de casos.
+          </p>
+
+          <div class="brand-features">
+
+            <div class="feature">
+              <div class="feature-icon">●</div>
+              <span>
+                Gestión<br>
+                de casos
+              </span>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">✓</div>
+              <span>
+                Seguimiento<br>
+                profesional
+              </span>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">▮</div>
+              <span>
+                Información<br>
+                organizada
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- PANEL DERECHO -->
+      <section class="form-panel">
+
+        <div class="form-content">
+
+          <div class="form-title-line"></div>
+
+          <h2>
+            Iniciar sesión
+          </h2>
+
+          <p class="form-subtitle">
+            Ingrese sus credenciales para acceder al sistema.
+          </p>
+
+          <form (ngSubmit)="iniciarSesion()">
+
+            <!-- USUARIO -->
+            <div class="form-group">
+
+              <label for="username">
+                Usuario
+              </label>
+
+              <div class="input-container">
+
+                <span
+                  class="input-icon"
+                  aria-hidden="true">
+                  ♙
+                </span>
+
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  [(ngModel)]="usuario"
+                  placeholder="Ingrese su usuario"
+                  autocomplete="username"
+                  required
+                />
+
+              </div>
+
+            </div>
+
+            <!-- CONTRASEÑA -->
+            <div class="form-group">
+
+              <label for="password">
+                Contraseña
+              </label>
+
+              <div class="input-container">
+
+                <span
+                  class="input-icon"
+                  aria-hidden="true">
+                  ▣
+                </span>
+
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  [(ngModel)]="password"
+                  placeholder="Ingrese su contraseña"
+                  autocomplete="current-password"
+                  required
+                />
+
+              </div>
+
+            </div>
+
+            <!-- MENSAJE DE ERROR -->
+            @if (mensajeError) {
+
+              <div class="error-message">
+                {{ mensajeError }}
+              </div>
+
+            }
+
+            <!-- BOTÓN -->
+            <button
+              type="submit"
+              class="login-button"
+              [disabled]="!usuario.trim() || !password.trim()">
+
+              <span>
+                Iniciar sesión
+              </span>
+
+              <span
+                class="button-arrow"
+                aria-hidden="true">
+                →
+              </span>
+
+            </button>
+
+          </form>
+
+          <!-- NOTA -->
+          <div class="access-note">
+
+            <span></span>
+
+            <p>
+              Acceso exclusivo para usuarios autorizados
+            </p>
+
+            <span></span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</div>

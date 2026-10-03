@@ -1,0 +1,223 @@
+<div class="usuarios-page">
+
+  <header class="usuarios-header">
+
+    <div class="header-info">
+
+      <span class="header-label">
+        USUARIOS
+      </span>
+
+      <h1>
+        Gestión de usuarios
+      </h1>
+
+      <p>
+        Consulta de usuarios, roles y estado de acceso al sistema.
+      </p>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <div class="user-info">
+
+        <span class="user-role">
+          {{ rolActual }}
+        </span>
+
+        <strong>
+          {{ usuarioActual }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="volverDashboard()"
+      >
+        <span>←</span>
+        Volver al Dashboard
+      </button>
+
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="cerrarSesion()"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="usuarios-content">
+
+    @if (mensajeError) {
+
+      <div class="error-message">
+
+        <span class="error-icon">
+          !
+        </span>
+
+        <span>
+          {{ mensajeError }}
+        </span>
+
+      </div>
+
+    }
+
+
+    @if (!mensajeError) {
+
+      <section class="users-panel">
+
+        <div class="panel-title">
+
+          <div>
+
+            <span class="section-label">
+              GESTIÓN
+            </span>
+
+            <h2>
+              Usuarios registrados
+            </h2>
+
+            <p>
+              Usuarios autorizados para acceder al sistema.
+            </p>
+
+          </div>
+
+
+          <span class="user-count">
+            {{ usuarios().length }} usuarios
+          </span>
+
+        </div>
+
+
+        @if (usuarios().length > 0) {
+
+          <div class="table-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>Usuario</th>
+
+                  <th>Nombres</th>
+
+                  <th>Apellidos</th>
+
+                  <th>Rol</th>
+
+                  <th>Estado</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  usuario of usuarios();
+                  track usuario.id
+                ) {
+
+                  <tr>
+
+                    <td>
+                      <strong class="username">
+                        {{ usuario.username }}
+                      </strong>
+                    </td>
+
+                    <td>
+                      {{ usuario.nombres }}
+                    </td>
+
+                    <td>
+                      {{ usuario.apellidos }}
+                    </td>
+
+                    <td>
+
+                      <span
+                        class="role"
+                        [class.admin]="
+                          usuario.rol === 'ADMINISTRADOR'
+                        "
+                        [class.professional]="
+                          usuario.rol === 'PROFESIONAL'
+                        "
+                      >
+                        {{ usuario.rol }}
+                      </span>
+
+                    </td>
+
+                    <td>
+
+                      @if (usuario.estado) {
+
+                        <span class="status active">
+                          Activo
+                        </span>
+
+                      } @else {
+
+                        <span class="status inactive">
+                          Inactivo
+                        </span>
+
+                      }
+
+                    </td>
+
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        } @else {
+
+          <div class="empty-message">
+
+            <h3>
+              No hay usuarios registrados
+            </h3>
+
+            <p>
+              No existen usuarios disponibles para mostrar.
+            </p>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+  </main>
+
+</div>

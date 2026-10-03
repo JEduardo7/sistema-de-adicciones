@@ -1,0 +1,337 @@
+<div class="seguimiento-page">
+
+  <header class="seguimiento-header">
+
+    <div class="header-info">
+
+      <span class="header-label">
+        SEGUIMIENTOS
+      </span>
+
+      <h1>
+        Nuevo seguimiento
+      </h1>
+
+      <p>
+        Registrar un nuevo seguimiento para el caso seleccionado
+      </p>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <div class="user-info">
+
+        <span class="user-role">
+          {{ rolActual }}
+        </span>
+
+        <strong>
+          {{ usuarioActual }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="cancelar()"
+      >
+        <span class="back-icon">←</span>
+        Volver a ficha
+      </button>
+
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="cerrarSesion()"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="seguimiento-content">
+
+    <section class="form-panel">
+
+      <div class="panel-title">
+
+        <div>
+
+          <span class="section-label">
+            REGISTRO
+          </span>
+
+          <h2>
+            Datos del seguimiento
+          </h2>
+
+          <p>
+            Complete la información correspondiente al seguimiento
+          </p>
+
+        </div>
+
+        <div class="case-code">
+
+          <span>
+            Caso
+          </span>
+
+          <strong>
+            {{ codigoCaso }}
+          </strong>
+
+          @if (nombrePaciente) {
+
+            <small>
+              {{ nombrePaciente }}
+            </small>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      @if (mensajeError) {
+
+        <div class="error-message">
+
+          <span class="error-icon">
+            !
+          </span>
+
+          <span>
+            {{ mensajeError }}
+          </span>
+
+        </div>
+
+      }
+
+
+      <form
+        class="seguimiento-form"
+        (ngSubmit)="guardarSeguimiento()"
+      >
+
+        <section class="form-section">
+
+          <div class="section-heading">
+
+            <h3>
+              Información del seguimiento
+            </h3>
+
+            <p>
+              Indique los datos básicos del seguimiento realizado.
+            </p>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label for="fechaSeguimiento">
+                Fecha de seguimiento
+              </label>
+
+              <input
+                id="fechaSeguimiento"
+                name="fechaSeguimiento"
+                type="date"
+                [(ngModel)]="fechaSeguimiento"
+                required
+              />
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="profesional">
+                Profesional
+              </label>
+
+              <input
+                id="profesional"
+                name="profesional"
+                type="text"
+                [(ngModel)]="profesional"
+                placeholder="Profesional responsable"
+                required
+              />
+
+            </div>
+
+
+            <div class="form-group full-width">
+
+              <label for="tipoSeguimiento">
+                Tipo de seguimiento
+              </label>
+
+              <select
+                id="tipoSeguimiento"
+                name="tipoSeguimiento"
+                [(ngModel)]="tipoSeguimiento"
+                required
+              >
+
+                <option value="">
+                  Seleccione un tipo
+                </option>
+
+                <option value="Seguimiento psicológico">
+                  Seguimiento psicológico
+                </option>
+
+                <option value="Seguimiento de control">
+                  Seguimiento de control
+                </option>
+
+                <option value="Seguimiento telefónico">
+                  Seguimiento telefónico
+                </option>
+
+                <option value="Seguimiento presencial">
+                  Seguimiento presencial
+                </option>
+
+                <option value="Otro">
+                  Otro
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <section class="form-section">
+
+          <div class="section-heading">
+
+            <h3>
+              Detalle del seguimiento
+            </h3>
+
+            <p>
+              Registre las actividades realizadas, acuerdos y resultado obtenido.
+            </p>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="form-group full-width">
+
+              <label for="descripcion">
+                Descripción
+              </label>
+
+              <textarea
+                id="descripcion"
+                name="descripcion"
+                [(ngModel)]="descripcion"
+                rows="4"
+                placeholder="Describa las actividades realizadas durante el seguimiento"
+                required
+              ></textarea>
+
+            </div>
+
+
+            <div class="form-group full-width">
+
+              <label for="acuerdos">
+                Acuerdos
+              </label>
+
+              <textarea
+                id="acuerdos"
+                name="acuerdos"
+                [(ngModel)]="acuerdos"
+                rows="4"
+                placeholder="Registre los acuerdos establecidos"
+                required
+              ></textarea>
+
+            </div>
+
+
+            <div class="form-group full-width">
+
+              <label for="resultado">
+                Resultado
+              </label>
+
+              <textarea
+                id="resultado"
+                name="resultado"
+                [(ngModel)]="resultado"
+                rows="4"
+                placeholder="Indique el resultado del seguimiento"
+                required
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="cancel-button"
+            (click)="cancelar()"
+          >
+            Cancelar
+          </button>
+
+
+          <button
+            type="submit"
+            class="save-button"
+            [disabled]="guardando"
+          >
+
+            @if (guardando) {
+
+              Guardando...
+
+            } @else {
+
+              Guardar seguimiento
+
+            }
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+</div>

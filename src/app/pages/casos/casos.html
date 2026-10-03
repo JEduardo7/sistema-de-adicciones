@@ -1,0 +1,481 @@
+<div class="casos-page">
+
+  <header class="casos-header">
+
+    <div class="casos-title">
+
+      <span class="header-label">
+        GESTIÓN DE CASOS
+      </span>
+
+      <h1>
+        Gestión de casos
+      </h1>
+
+      <p>
+        Consulta y seguimiento de los casos registrados en el sistema.
+      </p>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <div class="user-info">
+
+        <span class="user-role">
+          {{ rolActual }}
+        </span>
+
+        <strong>
+          {{ usuarioActual }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="new-case-button"
+        (click)="nuevoCaso()"
+      >
+        + Nuevo caso
+      </button>
+
+
+      <button
+        type="button"
+        class="back-dashboard-button"
+        (click)="volverDashboard()"
+      >
+        <span class="back-icon">←</span>
+        Dashboard
+      </button>
+
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="cerrarSesion()"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="casos-content">
+
+    <section class="filters-panel">
+
+      <div class="filter-header">
+
+        <div>
+
+          <span class="section-label">
+            BÚSQUEDA Y FILTROS
+          </span>
+
+          <h2>
+            Buscar casos
+          </h2>
+
+        </div>
+
+        <span class="filter-description">
+          Utilice los filtros para encontrar un caso específico.
+        </span>
+
+      </div>
+
+
+      <div class="filters-content">
+
+        <div class="search-group">
+
+          <label for="busqueda">
+            Buscar caso
+          </label>
+
+          <input
+            id="busqueda"
+            type="text"
+            [(ngModel)]="busqueda"
+            placeholder="Código o nombres del caso"
+          />
+
+        </div>
+
+
+        <div class="filter-group">
+
+          <label for="riesgo">
+            Nivel de riesgo
+          </label>
+
+          <select
+            id="riesgo"
+            [(ngModel)]="nivelRiesgo"
+          >
+
+            <option value="">
+              Todos
+            </option>
+
+            <option value="Bajo">
+              Bajo
+            </option>
+
+            <option value="Medio">
+              Medio
+            </option>
+
+            <option value="Alto">
+              Alto
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="filter-group">
+
+          <label for="estado">
+            Estado
+          </label>
+
+          <select
+            id="estado"
+            [(ngModel)]="estado"
+          >
+
+            <option value="">
+              Todos
+            </option>
+
+            <option value="Activo">
+              Activo
+            </option>
+
+            <option value="En seguimiento">
+              En seguimiento
+            </option>
+
+            <option value="Cerrado">
+              Cerrado
+            </option>
+
+          </select>
+
+        </div>
+
+
+        @if (esAdministrador()) {
+
+          <div class="filter-group">
+
+            <label for="profesionalFiltro">
+              Profesional
+            </label>
+
+            <select
+              id="profesionalFiltro"
+              [(ngModel)]="profesionalFiltro"
+            >
+
+              <option value="">
+                Todos
+              </option>
+
+              <option value="N00404657">
+                Iván Asencio
+              </option>
+
+              <option value="N00455009">
+                Eder Guerrero
+              </option>
+
+              <option value="N00032972">
+                José Ruiz
+              </option>
+
+              <option value="N00400282">
+                Nelver Vigo
+              </option>
+
+            </select>
+
+          </div>
+
+        }
+
+
+        <div class="filter-actions">
+
+          <button
+            type="button"
+            class="filter-button"
+            (click)="filtrarCasos()"
+          >
+            Filtrar
+          </button>
+
+          <button
+            type="button"
+            class="clear-button"
+            (click)="limpiarFiltros()"
+          >
+            Limpiar
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    @if (mensajeError) {
+
+      <div class="error-message">
+        {{ mensajeError }}
+      </div>
+
+    }
+
+
+    <section class="cases-panel">
+
+      <div class="panel-title">
+
+        <div>
+
+          <span class="section-label">
+            REGISTROS
+          </span>
+
+          <h2>
+            Casos registrados
+          </h2>
+
+          <p>
+            Información obtenida desde el sistema.
+          </p>
+
+        </div>
+
+        <span class="case-count">
+          {{ casosFiltrados().length }} casos
+        </span>
+
+      </div>
+
+
+      @if (casosFiltrados().length > 0) {
+
+        <div class="table-container">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Código
+                </th>
+
+                <th>
+                  Paciente
+                </th>
+
+                @if (esAdministrador()) {
+
+                  <th>
+                    Profesional
+                  </th>
+
+                }
+
+                <th>
+                  Fecha de registro
+                </th>
+
+                <th>
+                  Edad
+                </th>
+
+                <th>
+                  Sexo
+                </th>
+
+                <th>
+                  Nivel de riesgo
+                </th>
+
+                <th>
+                  Estado
+                </th>
+
+                <th>
+                  Acción
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              @for (
+                caso of casosFiltrados();
+                track caso.id
+              ) {
+
+                <tr>
+
+                  <td>
+
+                    <strong class="case-code">
+                      {{ caso.codigoCaso }}
+                    </strong>
+
+                  </td>
+
+
+                  <td>
+
+                    <span class="patient-name">
+                      {{ caso.nombres }}
+                      {{ caso.apellidos }}
+                    </span>
+
+                  </td>
+
+
+                  @if (esAdministrador()) {
+
+                    <td>
+
+                      <span class="professional-name">
+                        {{ obtenerNombreProfesional(caso.profesional) }}
+                      </span>
+
+                    </td>
+
+                  }
+
+
+                  <td>
+                    {{ caso.fechaRegistro }}
+                  </td>
+
+
+                  <td>
+                    {{ caso.edad }}
+                  </td>
+
+
+                  <td>
+                    {{ caso.sexo }}
+                  </td>
+
+
+                  <td>
+
+                    <span
+                      class="risk"
+                      [class.low]="normalizar(caso.nivelRiesgo) === 'bajo'"
+                      [class.medium]="normalizar(caso.nivelRiesgo) === 'medio'"
+                      [class.high]="normalizar(caso.nivelRiesgo) === 'alto'"
+                    >
+                      {{ caso.nivelRiesgo }}
+                    </span>
+
+                  </td>
+
+
+                  <td>
+
+                    <span
+                      class="status"
+                      [class.status-active]="
+                        normalizar(caso.estado) === 'activo'
+                      "
+                      [class.status-follow-up]="
+                        normalizar(caso.estado) === 'en seguimiento'
+                      "
+                      [class.status-closed]="
+                        normalizar(caso.estado) === 'cerrado'
+                      "
+                    >
+                      {{ caso.estado }}
+                    </span>
+
+                  </td>
+
+
+                  <td class="action-cell">
+
+                    <button
+                      type="button"
+                      class="view-button"
+                      (click)="verFicha(caso.id)"
+                    >
+                      Ver ficha
+                    </button>
+
+
+                    @if (esAdministrador()) {
+
+                      <button
+                        type="button"
+                        class="delete-button"
+                        [disabled]="eliminando"
+                        (click)="eliminarCaso(caso.id)"
+                      >
+                        Eliminar
+                      </button>
+
+                    }
+
+                  </td>
+
+                </tr>
+
+              }
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      } @else if (!mensajeError) {
+
+        <div class="empty-message">
+
+          <div class="empty-icon">
+            —
+          </div>
+
+          <h3>
+            No se encontraron casos
+          </h3>
+
+          <p>
+            No existen casos que coincidan con los filtros seleccionados.
+          </p>
+
+        </div>
+
+      }
+
+    </section>
+
+  </main>
+
+</div>

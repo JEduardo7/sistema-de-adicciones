@@ -1,0 +1,845 @@
+<div class="ficha-page">
+
+  <header class="ficha-header">
+
+    <div class="header-info">
+
+      <span class="header-label">
+        GESTIÓN DE CASOS
+      </span>
+
+      <h1>
+        Ficha del caso
+      </h1>
+
+      <p>
+        Consulta de información y seguimiento del caso seleccionado
+      </p>
+
+    </div>
+
+    <div class="header-actions">
+
+      <div class="user-info">
+
+        <span class="user-role">
+          {{ rolActual }}
+        </span>
+
+        <strong>
+          {{ usuarioActual }}
+        </strong>
+
+      </div>
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="volverACasos()"
+      >
+        <span class="back-icon">←</span>
+        Volver a casos
+      </button>
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="cerrarSesion()"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="ficha-content">
+
+    @if (mensajeError) {
+
+      <div class="message error-message">
+
+        <span class="message-icon">
+          !
+        </span>
+
+        <span>
+          {{ mensajeError }}
+        </span>
+
+      </div>
+
+    }
+
+
+    @if (mensajeExito) {
+
+      <div class="message success-message">
+
+        <span class="message-icon">
+          ✓
+        </span>
+
+        <span>
+          {{ mensajeExito }}
+        </span>
+
+      </div>
+
+    }
+
+
+    @if (caso()) {
+
+      <section class="case-panel">
+
+        <div class="panel-title">
+
+          <div>
+
+            <span class="section-label">
+              INFORMACIÓN GENERAL
+            </span>
+
+            <h2>
+              Información del caso
+            </h2>
+
+            <p>
+              Datos generales del caso registrado
+            </p>
+
+          </div>
+
+
+          <div class="case-header-actions">
+
+            <div class="case-code-box">
+
+              <span>
+                Código
+              </span>
+
+              <strong>
+                {{ caso().codigoCaso }}
+              </strong>
+
+            </div>
+
+
+            @if (!modoEdicion) {
+
+              <button
+                type="button"
+                class="edit-case-button"
+                (click)="activarEdicion()"
+              >
+                ✎ Editar caso
+              </button>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        @if (!modoEdicion) {
+
+          <div class="case-data">
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Nombres
+              </span>
+
+              <strong>
+                {{ caso().nombres }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Apellidos
+              </span>
+
+              <strong>
+                {{ caso().apellidos }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Documento
+              </span>
+
+              <strong>
+                {{ caso().documento }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Edad
+              </span>
+
+              <strong>
+                {{ caso().edad }} años
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Sexo
+              </span>
+
+              <strong>
+                {{ caso().sexo }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Fecha de registro
+              </span>
+
+              <strong>
+                {{ caso().fechaRegistro }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Profesional responsable
+              </span>
+
+              @if (caso().profesional) {
+
+                <div class="professional-info">
+
+                  <strong>
+                    {{ obtenerNombreProfesional(caso().profesional) }}
+                  </strong>
+
+                  <span class="professional-code">
+                    {{ caso().profesional }}
+                  </span>
+
+                </div>
+
+              } @else {
+
+                <strong>
+                  No registrado
+                </strong>
+
+              }
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Sustancia principal
+              </span>
+
+              <strong>
+                {{ caso().sustanciaPrincipal }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Frecuencia de consumo
+              </span>
+
+              <strong>
+                {{ caso().frecuenciaConsumo }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Tiempo de consumo
+              </span>
+
+              <strong>
+                {{ caso().tiempoConsumo }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Nivel de riesgo
+              </span>
+
+              <span
+                class="risk"
+                [class.low]="
+                  caso().nivelRiesgo?.toString().trim().toLowerCase() === 'bajo'
+                "
+                [class.medium]="
+                  caso().nivelRiesgo?.toString().trim().toLowerCase() === 'medio'
+                "
+                [class.high]="
+                  caso().nivelRiesgo?.toString().trim().toLowerCase() === 'alto'
+                "
+              >
+                {{ caso().nivelRiesgo }}
+              </span>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Estado actual
+              </span>
+
+              <span class="status">
+                {{ caso().estado }}
+              </span>
+
+            </div>
+
+
+            <div class="data-group">
+
+              <span class="data-label">
+                Diagnóstico
+              </span>
+
+              <strong>
+                {{ caso().diagnostico }}
+              </strong>
+
+            </div>
+
+
+            <div class="data-group full-width">
+
+              <span class="data-label">
+                Observaciones
+              </span>
+
+              <p class="observation-text">
+                {{ caso().observaciones }}
+              </p>
+
+            </div>
+
+          </div>
+
+        } @else {
+
+          <div class="edit-case-form">
+
+            <div class="edit-form-group">
+
+              <label for="nombres">
+                Nombres
+              </label>
+
+              <input
+                id="nombres"
+                type="text"
+                [(ngModel)]="datosEdicion.nombres"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="apellidos">
+                Apellidos
+              </label>
+
+              <input
+                id="apellidos"
+                type="text"
+                [(ngModel)]="datosEdicion.apellidos"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="documento">
+                Documento
+              </label>
+
+              <input
+                id="documento"
+                type="text"
+                [(ngModel)]="datosEdicion.documento"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="edad">
+                Edad
+              </label>
+
+              <input
+                id="edad"
+                type="number"
+                min="1"
+                [(ngModel)]="datosEdicion.edad"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="sexo">
+                Sexo
+              </label>
+
+              <select
+                id="sexo"
+                [(ngModel)]="datosEdicion.sexo"
+              >
+
+                <option value="MASCULINO">
+                  Masculino
+                </option>
+
+                <option value="FEMENINO">
+                  Femenino
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="fechaRegistro">
+                Fecha de registro
+              </label>
+
+              <input
+                id="fechaRegistro"
+                type="date"
+                [(ngModel)]="datosEdicion.fechaRegistro"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="sustanciaPrincipal">
+                Sustancia principal
+              </label>
+
+              <input
+                id="sustanciaPrincipal"
+                type="text"
+                [(ngModel)]="datosEdicion.sustanciaPrincipal"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="frecuenciaConsumo">
+                Frecuencia de consumo
+              </label>
+
+              <input
+                id="frecuenciaConsumo"
+                type="text"
+                [(ngModel)]="datosEdicion.frecuenciaConsumo"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="tiempoConsumo">
+                Tiempo de consumo
+              </label>
+
+              <input
+                id="tiempoConsumo"
+                type="text"
+                [(ngModel)]="datosEdicion.tiempoConsumo"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="nivelRiesgo">
+                Nivel de riesgo
+              </label>
+
+              <select
+                id="nivelRiesgo"
+                [(ngModel)]="datosEdicion.nivelRiesgo"
+              >
+
+                <option value="Bajo">
+                  Bajo
+                </option>
+
+                <option value="Medio">
+                  Medio
+                </option>
+
+                <option value="Alto">
+                  Alto
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="estado">
+                Estado
+              </label>
+
+              <select
+                id="estado"
+                [(ngModel)]="datosEdicion.estado"
+              >
+
+                <option value="Activo">
+                  Activo
+                </option>
+
+                <option value="En seguimiento">
+                  En seguimiento
+                </option>
+
+                <option value="Cerrado">
+                  Cerrado
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+              <label for="diagnostico">
+                Diagnóstico
+              </label>
+
+              <input
+                id="diagnostico"
+                type="text"
+                [(ngModel)]="datosEdicion.diagnostico"
+              />
+
+            </div>
+
+
+            <div class="edit-form-group full-width">
+
+              <label for="observaciones">
+                Observaciones
+              </label>
+
+              <textarea
+                id="observaciones"
+                rows="4"
+                [(ngModel)]="datosEdicion.observaciones"
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <div class="edit-actions">
+
+            <button
+              type="button"
+              class="cancel-edit-button"
+              (click)="cancelarEdicion()"
+              [disabled]="guardandoEdicion"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              class="save-edit-button"
+              (click)="guardarEdicion()"
+              [disabled]="guardandoEdicion"
+            >
+
+              @if (guardandoEdicion) {
+
+                Guardando...
+
+              } @else {
+
+                Guardar cambios
+
+              }
+
+            </button>
+
+          </div>
+
+        }
+
+
+        @if (!modoEdicion) {
+
+          <div class="status-update">
+
+            <div class="status-update-info">
+
+              <span class="data-label">
+                Actualizar estado del caso
+              </span>
+
+              <p>
+                Seleccione el nuevo estado y guarde el cambio.
+              </p>
+
+            </div>
+
+
+            <div class="status-update-actions">
+
+              <select
+                [(ngModel)]="estadoSeleccionado"
+                class="status-select"
+              >
+
+                <option value="Activo">
+                  Activo
+                </option>
+
+                <option value="En seguimiento">
+                  En seguimiento
+                </option>
+
+                <option value="Cerrado">
+                  Cerrado
+                </option>
+
+              </select>
+
+
+              <button
+                type="button"
+                class="save-status-button"
+                (click)="actualizarEstado()"
+                [disabled]="guardandoEstado"
+              >
+
+                @if (guardandoEstado) {
+
+                  Guardando...
+
+                } @else {
+
+                  Guardar estado
+
+                }
+
+              </button>
+
+            </div>
+
+          </div>
+
+        }
+
+      </section>
+
+
+      <section class="follow-up-panel">
+
+        <div class="panel-title">
+
+          <div>
+
+            <span class="section-label">
+              HISTORIAL
+            </span>
+
+            <h2>
+              Seguimientos
+            </h2>
+
+            <p>
+              Historial de seguimientos registrados para este caso
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="new-follow-up-button"
+            (click)="nuevoSeguimiento()"
+          >
+            <span>+</span>
+            Nuevo seguimiento
+          </button>
+
+        </div>
+
+
+        @if (seguimientos().length > 0) {
+
+          <div class="follow-up-list">
+
+            @for (
+              seguimiento of seguimientos();
+              track seguimiento.id
+            ) {
+
+              <article class="follow-up-item">
+
+                <div class="follow-up-top">
+
+                  <div class="follow-up-heading">
+
+                    <strong>
+                      {{ seguimiento.tipoSeguimiento }}
+                    </strong>
+
+                    <span class="follow-up-professional">
+                      Profesional:
+                      {{ obtenerNombreProfesional(seguimiento.profesional) }}
+                    </span>
+
+                  </div>
+
+
+                  <span class="follow-up-date">
+                    {{ seguimiento.fechaSeguimiento }}
+                  </span>
+
+                </div>
+
+
+                <div class="follow-up-body">
+
+                  <div class="follow-up-data">
+
+                    <span class="data-label">
+                      Descripción
+                    </span>
+
+                    <p>
+                      {{ seguimiento.descripcion }}
+                    </p>
+
+                  </div>
+
+
+                  <div class="follow-up-data">
+
+                    <span class="data-label">
+                      Acuerdos
+                    </span>
+
+                    <p>
+                      {{ seguimiento.acuerdos }}
+                    </p>
+
+                  </div>
+
+
+                  <div class="follow-up-data">
+
+                    <span class="data-label">
+                      Resultado
+                    </span>
+
+                    <p>
+                      {{ seguimiento.resultado }}
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </article>
+
+            }
+
+          </div>
+
+        } @else {
+
+          <div class="empty-follow-up">
+
+            <div class="empty-icon">
+              +
+            </div>
+
+            <h3>
+              No hay seguimientos registrados
+            </h3>
+
+            <p>
+              Este caso todavía no tiene seguimientos registrados
+              en el sistema.
+            </p>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+  </main>
+
+</div>

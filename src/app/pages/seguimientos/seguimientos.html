@@ -1,0 +1,330 @@
+<div class="seguimientos-page">
+
+  <header class="seguimientos-header">
+
+    <div class="header-info">
+
+      <span class="header-label">
+        SEGUIMIENTOS
+      </span>
+
+      <h1>Seguimientos</h1>
+
+      <p>
+        Consulta de los seguimientos registrados en el sistema.
+      </p>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <div class="user-info">
+
+        <span class="user-role">
+          {{ rolActual }}
+        </span>
+
+        <strong>
+          {{ usuarioActual }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="back-cases-button"
+        (click)="volverCasos()"
+      >
+        <span>←</span>
+        Volver a casos
+      </button>
+
+
+      <button
+        type="button"
+        class="back-dashboard-button"
+        (click)="volverDashboard()"
+      >
+        Dashboard
+      </button>
+
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="cerrarSesion()"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="seguimientos-content">
+
+    @if (mensajeError) {
+
+      <div class="error-message">
+        {{ mensajeError }}
+      </div>
+
+    }
+
+
+    @if (esAdministrador()) {
+
+      <section class="filters-panel">
+
+        <div class="filter-header">
+
+          <div>
+
+            <span class="section-label">
+              BÚSQUEDA Y FILTROS
+            </span>
+
+            <h2>
+              Filtrar seguimientos
+            </h2>
+
+          </div>
+
+          <span class="filter-description">
+            Seleccione un profesional para consultar sus seguimientos.
+          </span>
+
+        </div>
+
+
+        <div class="filters-content">
+
+          <div class="filter-group">
+
+            <label for="profesionalFiltro">
+              Profesional
+            </label>
+
+            <select
+              id="profesionalFiltro"
+              [(ngModel)]="profesionalFiltro"
+            >
+
+              <option value="">
+                Todos
+              </option>
+
+              <option value="N00404657">
+                Iván Asencio
+              </option>
+
+              <option value="N00455009">
+                Eder Guerrero
+              </option>
+
+              <option value="N00032972">
+                José Ruiz
+              </option>
+
+              <option value="N00400282">
+                Nelver Vigo
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="filter-actions">
+
+            <button
+              type="button"
+              class="filter-button"
+              (click)="filtrarSeguimientos()"
+            >
+              Filtrar
+            </button>
+
+            <button
+              type="button"
+              class="clear-button"
+              (click)="limpiarFiltros()"
+            >
+              Limpiar
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <section class="follow-ups-panel">
+
+      <div class="panel-title">
+
+        <div>
+
+          <span class="section-label">
+            HISTORIAL
+          </span>
+
+          <h2>
+            Historial de seguimientos
+          </h2>
+
+          <p>
+            Seguimientos registrados para los casos del sistema.
+          </p>
+
+        </div>
+
+        <span class="follow-up-count">
+          {{ seguimientosFiltrados().length }} seguimientos
+        </span>
+
+      </div>
+
+
+      @if (seguimientosFiltrados().length > 0) {
+
+        <div class="follow-up-list">
+
+          @for (
+            seguimiento of seguimientosFiltrados();
+            track seguimiento.id
+          ) {
+
+            <article class="follow-up-item">
+
+              <div class="follow-up-top">
+
+                <div>
+
+                  <strong>
+                    {{ seguimiento.tipoSeguimiento }}
+                  </strong>
+
+                  <span>
+                    Profesional:
+                    {{ obtenerNombreProfesional(seguimiento.profesional) }}
+                  </span>
+
+                </div>
+
+                <span class="follow-up-date">
+                  {{ seguimiento.fechaSeguimiento }}
+                </span>
+
+              </div>
+
+
+              <div class="follow-up-info">
+
+                <div class="info-group">
+
+                  <span class="data-label">
+                    Caso
+                  </span>
+
+                  <strong>
+                    {{ seguimiento.codigoCaso || 'Sin código' }}
+                  </strong>
+
+                  @if (seguimiento.nombrePaciente) {
+
+                    <small>
+                      {{ seguimiento.nombrePaciente }}
+                    </small>
+
+                  }
+
+                </div>
+
+
+                <div class="info-group">
+
+                  <span class="data-label">
+                    Descripción
+                  </span>
+
+                  <p>
+                    {{ seguimiento.descripcion }}
+                  </p>
+
+                </div>
+
+
+                <div class="info-group">
+
+                  <span class="data-label">
+                    Acuerdos
+                  </span>
+
+                  <p>
+                    {{ seguimiento.acuerdos }}
+                  </p>
+
+                </div>
+
+
+                <div class="info-group">
+
+                  <span class="data-label">
+                    Resultado
+                  </span>
+
+                  <p>
+                    {{ seguimiento.resultado }}
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="follow-up-actions">
+
+                <button
+                  type="button"
+                  class="view-case-button"
+                  (click)="verFichaCaso(seguimiento.casoId)"
+                >
+                  Ver ficha del caso
+                </button>
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      } @else if (!mensajeError) {
+
+        <div class="empty-message">
+
+          <h3>
+            No hay seguimientos registrados
+          </h3>
+
+          <p>
+            Todavía no existen seguimientos disponibles para mostrar.
+          </p>
+
+        </div>
+
+      }
+
+    </section>
+
+  </main>
+
+</div>

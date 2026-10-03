@@ -1,0 +1,287 @@
+<div class="dashboard-page">
+
+  <header class="dashboard-header">
+
+    <div class="dashboard-title">
+
+      <span class="header-label">
+        SISTEMA DE ADICCIONES
+      </span>
+
+      <h1>
+        Dashboard
+      </h1>
+
+      <p>
+        Sistema de gestión y seguimiento de casos de adicciones
+      </p>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <div class="user-info">
+
+        <span class="user-role">
+          {{ rolActual || 'Usuario' }}
+        </span>
+
+        <strong>
+          {{ usuarioActual }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="cerrarSesion()"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <nav class="dashboard-nav">
+
+    <a class="active">
+      Dashboard
+    </a>
+
+    <a routerLink="/casos">
+      Casos
+    </a>
+
+    <a routerLink="/seguimientos">
+      Seguimientos
+    </a>
+
+    <a routerLink="/reportes">
+      Reportes
+    </a>
+
+    <a routerLink="/usuarios">
+      Usuarios
+    </a>
+
+  </nav>
+
+
+  <main class="dashboard-content">
+
+    <section class="welcome-section">
+
+      <span class="section-label">
+        RESUMEN
+      </span>
+
+      <h2>
+        Resumen general
+      </h2>
+
+      <p>
+        Consulta el estado actual de los casos registrados
+        en el sistema.
+      </p>
+
+    </section>
+
+
+    @if (mensajeError) {
+
+      <div class="dashboard-error">
+        {{ mensajeError }}
+      </div>
+
+    }
+
+
+    <section class="cards-container">
+
+      <div class="summary-card">
+
+        <div class="card-content">
+
+          <span class="card-label">
+            Casos registrados
+          </span>
+
+          <strong class="card-number">
+            {{ totalCasos() }}
+          </strong>
+
+          <span class="card-description">
+            Total de casos
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <div class="card-content">
+
+          <span class="card-label">
+            Casos activos
+          </span>
+
+          <strong class="card-number">
+            {{ casosActivos() }}
+          </strong>
+
+          <span class="card-description">
+            Casos en atención
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <div class="card-content">
+
+          <span class="card-label">
+            En seguimiento
+          </span>
+
+          <strong class="card-number">
+            {{ casosSeguimiento() }}
+          </strong>
+
+          <span class="card-description">
+            Casos con seguimiento
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <div class="card-content">
+
+          <span class="card-label">
+            Casos cerrados
+          </span>
+
+          <strong class="card-number">
+            {{ casosCerrados() }}
+          </strong>
+
+          <span class="card-description">
+            Casos finalizados
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="dashboard-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <span class="panel-label">
+            REGISTROS RECIENTES
+          </span>
+
+          <h2>
+            Casos recientes
+          </h2>
+
+          <p>
+            Últimos casos registrados en el sistema.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          routerLink="/casos"
+        >
+          Ver casos
+        </button>
+
+      </div>
+
+
+      <div class="activity-list">
+
+        @if (obtenerCasosRecientes().length > 0) {
+
+          @for (
+            caso of obtenerCasosRecientes();
+            track caso.id
+          ) {
+
+            <div class="activity-item">
+
+              <div class="case-main-info">
+
+                <strong class="case-code">
+                  {{ caso.codigoCaso }}
+                </strong>
+
+                <span class="case-person">
+                  {{ caso.nombres }}
+                  {{ caso.apellidos }}
+                </span>
+
+              </div>
+
+              <span
+                class="case-status"
+                [class.status-active]="
+                  caso.estado?.toString().trim().toLowerCase() === 'activo'
+                "
+                [class.status-follow-up]="
+                  caso.estado?.toString().trim().toLowerCase() === 'en seguimiento'
+                "
+                [class.status-closed]="
+                  caso.estado?.toString().trim().toLowerCase() === 'cerrado'
+                "
+              >
+                {{ caso.estado }}
+              </span>
+
+              <span class="case-date">
+                {{ caso.fechaRegistro }}
+              </span>
+
+            </div>
+
+          }
+
+        } @else {
+
+          <div class="empty-activity">
+
+            <p>
+              No hay casos registrados.
+            </p>
+
+          </div>
+
+        }
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

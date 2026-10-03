@@ -1,0 +1,435 @@
+<div class="reportes-page">
+
+  <header class="reportes-header">
+
+    <div class="header-info">
+
+      <span class="header-label">
+        REPORTES
+      </span>
+
+      <h1>
+        Reportes
+      </h1>
+
+      <p>
+        Resumen estadístico de los casos registrados en el sistema.
+      </p>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <div class="user-info">
+
+        <span class="user-role">
+          {{ rolActual }}
+        </span>
+
+        <strong>
+          {{ usuarioActual }}
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="back-cases-button"
+        (click)="volverCasos()"
+      >
+        <span>←</span>
+        Volver a casos
+      </button>
+
+
+      <button
+        type="button"
+        class="back-dashboard-button"
+        (click)="volverDashboard()"
+      >
+        Dashboard
+      </button>
+
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="cerrarSesion()"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="reportes-content">
+
+    @if (mensajeError) {
+
+      <div class="error-message">
+        {{ mensajeError }}
+      </div>
+
+    }
+
+
+    <!-- RESUMEN GENERAL -->
+
+    <section class="report-panel">
+
+      <div class="panel-title">
+
+        <div>
+
+          <span class="section-label">
+            RESUMEN
+          </span>
+
+          <h2>
+            Resumen general
+          </h2>
+
+          <p>
+            Distribución actual de los casos según su estado.
+          </p>
+
+        </div>
+
+        <span class="panel-label">
+          {{ totalCasos() }} casos
+        </span>
+
+      </div>
+
+
+      <div class="summary-grid">
+
+        <div class="summary-card">
+
+          <span class="card-label">
+            Total de casos
+          </span>
+
+          <strong class="card-number">
+            {{ totalCasos() }}
+          </strong>
+
+          <span class="card-description">
+            Casos registrados
+          </span>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <span class="card-label">
+            Casos activos
+          </span>
+
+          <strong class="card-number">
+            {{ casosActivos() }}
+          </strong>
+
+          <span class="card-description">
+            En atención
+          </span>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <span class="card-label">
+            En seguimiento
+          </span>
+
+          <strong class="card-number">
+            {{ casosSeguimiento() }}
+          </strong>
+
+          <span class="card-description">
+            Seguimiento activo
+          </span>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <span class="card-label">
+            Casos cerrados
+          </span>
+
+          <strong class="card-number">
+            {{ casosCerrados() }}
+          </strong>
+
+          <span class="card-description">
+            Casos finalizados
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- NIVEL DE RIESGO -->
+
+    <section class="report-panel">
+
+      <div class="panel-title">
+
+        <div>
+
+          <span class="section-label">
+            CLASIFICACIÓN
+          </span>
+
+          <h2>
+            Distribución por nivel de riesgo
+          </h2>
+
+          <p>
+            Cantidad de casos registrados según el nivel de riesgo.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="risk-grid">
+
+        <div class="risk-card">
+
+          <div class="risk-card-header">
+
+            <span class="risk-label">
+              Riesgo bajo
+            </span>
+
+            <span class="risk low">
+              Bajo
+            </span>
+
+          </div>
+
+          <strong class="risk-number">
+            {{ riesgoBajo() }}
+          </strong>
+
+          <p>
+            Casos con nivel de riesgo bajo.
+          </p>
+
+        </div>
+
+
+        <div class="risk-card">
+
+          <div class="risk-card-header">
+
+            <span class="risk-label">
+              Riesgo medio
+            </span>
+
+            <span class="risk medium">
+              Medio
+            </span>
+
+          </div>
+
+          <strong class="risk-number">
+            {{ riesgoMedio() }}
+          </strong>
+
+          <p>
+            Casos con nivel de riesgo medio.
+          </p>
+
+        </div>
+
+
+        <div class="risk-card">
+
+          <div class="risk-card-header">
+
+            <span class="risk-label">
+              Riesgo alto
+            </span>
+
+            <span class="risk high">
+              Alto
+            </span>
+
+          </div>
+
+          <strong class="risk-number">
+            {{ riesgoAlto() }}
+          </strong>
+
+          <p>
+            Casos con nivel de riesgo alto.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DETALLE DE CASOS -->
+
+    <section class="report-panel">
+
+      <div class="panel-title">
+
+        <div>
+
+          <span class="section-label">
+            DETALLE
+          </span>
+
+          <h2>
+            Detalle de casos
+          </h2>
+
+          <p>
+            Información resumida de los casos registrados.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      @if (casos().length > 0) {
+
+        <div class="table-container">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>Código</th>
+
+                <th>Paciente</th>
+
+                @if (esAdministrador()) {
+
+                  <th>Profesional</th>
+
+                }
+
+                <th>Fecha de registro</th>
+
+                <th>Nivel de riesgo</th>
+
+                <th>Estado</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              @for (
+                caso of casos();
+                track caso.id
+              ) {
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      {{ caso.codigoCaso }}
+                    </strong>
+                  </td>
+
+                  <td>
+                    {{ caso.nombres }}
+                    {{ caso.apellidos }}
+                  </td>
+
+                  @if (esAdministrador()) {
+
+                    <td>
+                      <span class="professional-name">
+                        {{ obtenerNombreProfesional(caso.profesional) }}
+                      </span>
+                    </td>
+
+                  }
+
+                  <td>
+                    {{ caso.fechaRegistro }}
+                  </td>
+
+                  <td>
+
+                    <span
+                      class="risk"
+                      [class.low]="
+                        normalizar(caso.nivelRiesgo) === 'bajo'
+                      "
+                      [class.medium]="
+                        normalizar(caso.nivelRiesgo) === 'medio'
+                      "
+                      [class.high]="
+                        normalizar(caso.nivelRiesgo) === 'alto'
+                      "
+                    >
+                      {{ caso.nivelRiesgo }}
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <span class="status">
+                      {{ caso.estado }}
+                    </span>
+
+                  </td>
+
+                </tr>
+
+              }
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      } @else if (!mensajeError) {
+
+        <div class="empty-message">
+
+          <h3>
+            No hay casos registrados
+          </h3>
+
+          <p>
+            No existen datos disponibles para generar el reporte.
+          </p>
+
+        </div>
+
+      }
+
+    </section>
+
+  </main>
+
+</div>
