@@ -1,11 +1,11 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Seguimiento } from '../../services/seguimiento';
 import { Caso } from '../../services/caso';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   selector: 'app-nuevo-seguimiento',
   styleUrl: 'nuevo-seguimiento.css',
   templateUrl: 'nuevo-seguimiento.html',

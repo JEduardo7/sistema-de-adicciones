@@ -7,6 +7,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
 /* ENCABEZADO */
 
 .casos-header {
@@ -55,6 +56,7 @@
   font-size: 13px;
 }
 
+
 /* ACCIONES DEL ENCABEZADO */
 
 .header-actions {
@@ -93,6 +95,7 @@
   font-size: 12px;
   font-weight: 700;
 }
+
 
 /* BOTÓN NUEVO CASO */
 
@@ -139,57 +142,6 @@
   outline-offset: 2px;
 }
 
-/* BOTÓN DASHBOARD */
-
-.back-dashboard-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 7px;
-
-  height: 34px;
-  min-height: 34px;
-
-  padding: 0 13px;
-
-  border: 1px solid #cbd8e3;
-  border-radius: 5px;
-
-  background: #ffffff;
-  color: #526273;
-
-  font-size: 11px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.back-dashboard-button:hover {
-  border-color: #9fb4c5;
-
-  background: #f4f8fb;
-  color: #1f6f8b;
-}
-
-.back-dashboard-button:focus {
-  outline: none;
-}
-
-.back-dashboard-button:focus-visible {
-  outline: 2px solid rgba(22, 124, 156, 0.25);
-  outline-offset: 2px;
-}
-
-.back-icon {
-  font-size: 15px;
-  line-height: 1;
-}
 
 /* CERRAR SESIÓN */
 
@@ -235,6 +187,53 @@
   outline-offset: 2px;
 }
 
+
+/* NAVEGACIÓN */
+
+.casos-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 36px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #dce5eb;
+}
+
+.casos-nav a {
+  padding: 15px 20px;
+
+  color: #627d98;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  border-bottom: 3px solid transparent;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.casos-nav a:hover {
+  color: #167c9c;
+  background: #f7fafc;
+}
+
+.casos-nav a.active {
+  color: #167c9c;
+
+  font-weight: 700;
+
+  border-bottom-color: #167c9c;
+}
+
+
 /* CONTENIDO */
 
 .casos-content {
@@ -243,8 +242,9 @@
 
   margin: 0 auto;
 
-  padding: 34px 0 45px;
+  padding: 24px 0 45px;
 }
+
 
 /* PANEL DE FILTROS */
 
@@ -298,6 +298,7 @@
 
   font-size: 11px;
 }
+
 
 /* CONTROLES DE FILTRO */
 
@@ -365,6 +366,7 @@
   box-shadow: 0 0 0 3px rgba(22, 124, 156, 0.10);
 }
 
+
 /* ACCIONES DE FILTROS */
 
 .filter-actions {
@@ -375,6 +377,7 @@
 
   height: 40px;
 }
+
 
 /* BOTONES DE FILTRO */
 
@@ -410,6 +413,7 @@
     box-shadow 0.2s ease;
 }
 
+
 /* BOTÓN FILTRAR */
 
 .filter-actions button:first-child {
@@ -438,6 +442,7 @@
   outline: 2px solid rgba(20, 124, 156, 0.25);
   outline-offset: 2px;
 }
+
 
 /* BOTÓN LIMPIAR */
 
@@ -473,6 +478,7 @@
   outline-offset: 1px;
 }
 
+
 /* MENSAJE DE ERROR */
 
 .error-message {
@@ -488,6 +494,7 @@
 
   font-size: 12px;
 }
+
 
 /* PANEL DE CASOS */
 
@@ -514,6 +521,7 @@
 
   background: #167c9c;
 }
+
 
 /* CABECERA DEL PANEL */
 
@@ -555,6 +563,7 @@
   font-size: 10px;
   font-weight: 700;
 }
+
 
 /* TABLA */
 
@@ -615,6 +624,7 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
+
 /* CÓDIGO, PACIENTE Y PROFESIONAL */
 
 .case-code {
@@ -637,6 +647,7 @@ tbody tr:last-child td {
   font-size: 12px;
   font-weight: 600;
 }
+
 
 /* NIVEL DE RIESGO */
 
@@ -672,6 +683,7 @@ tbody tr:last-child td {
   color: #b33a3a;
 }
 
+
 /* ESTADOS */
 
 .status {
@@ -705,6 +717,7 @@ tbody tr:last-child td {
   background: #edf0f2;
   color: #62707d;
 }
+
 
 /* BOTÓN VER FICHA */
 
@@ -740,6 +753,7 @@ tbody tr:last-child td {
   outline: 2px solid rgba(22, 124, 156, 0.25);
   outline-offset: 2px;
 }
+
 
 /* ACCIONES DE LA TABLA */
 
@@ -791,6 +805,7 @@ tbody tr:last-child td {
   cursor: not-allowed;
 }
 
+
 /* SIN CASOS */
 
 .empty-message {
@@ -824,6 +839,7 @@ tbody tr:last-child td {
   font-size: 11px;
 }
 
+
 /* RESPONSIVE */
 
 @media (max-width: 1100px) {
@@ -847,10 +863,17 @@ tbody tr:last-child td {
   }
 }
 
+
 @media (max-width: 900px) {
 
   .casos-header {
     padding: 18px 25px;
+  }
+
+  .casos-nav {
+    padding: 0 25px;
+
+    overflow-x: auto;
   }
 
   .casos-content {
@@ -868,6 +891,7 @@ tbody tr:last-child td {
   }
 }
 
+
 @media (max-width: 700px) {
 
   .casos-header {
@@ -883,7 +907,6 @@ tbody tr:last-child td {
   }
 
   .new-case-button,
-  .back-dashboard-button,
   .logout-button {
     flex: 1;
 
@@ -917,6 +940,7 @@ tbody tr:last-child td {
   }
 }
 
+
 @media (max-width: 600px) {
 
   .casos-content {
@@ -927,6 +951,16 @@ tbody tr:last-child td {
 
   .casos-header {
     padding: 18px;
+  }
+
+  .casos-nav {
+    justify-content: flex-start;
+
+    padding: 0 12px;
+  }
+
+  .casos-nav a {
+    padding: 14px 15px;
   }
 
   .header-actions {
@@ -946,7 +980,6 @@ tbody tr:last-child td {
   }
 
   .new-case-button,
-  .back-dashboard-button,
   .logout-button {
     width: 100%;
 

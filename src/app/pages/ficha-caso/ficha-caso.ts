@@ -1,11 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Caso } from '../../services/caso';
 import { Seguimiento } from '../../services/seguimiento';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   selector: 'app-ficha-caso',
   styleUrl: 'ficha-caso.css',
   templateUrl: 'ficha-caso.html',
@@ -357,7 +357,6 @@ export class FichaCaso implements OnInit {
           this.modoEdicion = false;
 
           this.guardandoEdicion = false;
-
         },
 
         error: (error) => {
@@ -389,7 +388,6 @@ export class FichaCaso implements OnInit {
           }
 
           this.guardandoEdicion = false;
-
         }
 
       });

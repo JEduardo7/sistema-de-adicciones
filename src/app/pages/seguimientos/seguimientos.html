@@ -8,14 +8,15 @@
         SEGUIMIENTOS
       </span>
 
-      <h1>Seguimientos</h1>
+      <h1>
+        Seguimientos
+      </h1>
 
       <p>
         Consulta de los seguimientos registrados en el sistema.
       </p>
 
     </div>
-
 
     <div class="header-actions">
 
@@ -31,26 +32,6 @@
 
       </div>
 
-
-      <button
-        type="button"
-        class="back-cases-button"
-        (click)="volverCasos()"
-      >
-        <span>←</span>
-        Volver a casos
-      </button>
-
-
-      <button
-        type="button"
-        class="back-dashboard-button"
-        (click)="volverDashboard()"
-      >
-        Dashboard
-      </button>
-
-
       <button
         type="button"
         class="logout-button"
@@ -63,6 +44,32 @@
 
   </header>
 
+  <nav class="seguimientos-nav">
+
+    <a routerLink="/dashboard">
+      Dashboard
+    </a>
+
+    <a routerLink="/casos">
+      Casos
+    </a>
+
+    <a
+      routerLink="/seguimientos"
+      class="active"
+    >
+      Seguimientos
+    </a>
+
+    <a routerLink="/reportes">
+      Reportes
+    </a>
+
+    <a routerLink="/usuarios">
+      Usuarios
+    </a>
+
+  </nav>
 
   <main class="seguimientos-content">
 
@@ -73,7 +80,6 @@
       </div>
 
     }
-
 
     @if (esAdministrador()) {
 
@@ -98,7 +104,6 @@
           </span>
 
         </div>
-
 
         <div class="filters-content">
 
@@ -137,7 +142,6 @@
 
           </div>
 
-
           <div class="filter-actions">
 
             <button
@@ -164,7 +168,6 @@
 
     }
 
-
     <section class="follow-ups-panel">
 
       <div class="panel-title">
@@ -190,7 +193,6 @@
         </span>
 
       </div>
-
 
       @if (seguimientosFiltrados().length > 0) {
 
@@ -224,7 +226,6 @@
 
               </div>
 
-
               <div class="follow-up-info">
 
                 <div class="info-group">
@@ -247,7 +248,6 @@
 
                 </div>
 
-
                 <div class="info-group">
 
                   <span class="data-label">
@@ -260,7 +260,6 @@
 
                 </div>
 
-
                 <div class="info-group">
 
                   <span class="data-label">
@@ -272,7 +271,6 @@
                   </p>
 
                 </div>
-
 
                 <div class="info-group">
 
@@ -287,7 +285,6 @@
                 </div>
 
               </div>
-
 
               <div class="follow-up-actions">
 

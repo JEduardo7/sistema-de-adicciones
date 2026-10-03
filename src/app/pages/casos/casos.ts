@@ -1,10 +1,13 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Caso } from '../../services/caso';
 
 @Component({
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    RouterLink
+  ],
   selector: 'app-casos',
   styleUrl: './casos.css',
   templateUrl: './casos.html',

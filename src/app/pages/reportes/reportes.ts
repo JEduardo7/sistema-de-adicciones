@@ -1,10 +1,10 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Caso } from '../../services/caso';
 
 @Component({
   selector: 'app-reportes',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './reportes.html',
   styleUrl: './reportes.css',
 })

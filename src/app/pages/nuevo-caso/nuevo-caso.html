@@ -18,7 +18,6 @@
 
     </div>
 
-
     <div class="header-actions">
 
       <div class="user-info">
@@ -33,17 +32,6 @@
 
       </div>
 
-
-      <button
-        type="button"
-        class="back-button"
-        (click)="cancelar()"
-      >
-        <span>←</span>
-        Volver a casos
-      </button>
-
-
       <button
         type="button"
         class="logout-button"
@@ -55,6 +43,31 @@
     </div>
 
   </header>
+
+
+  <nav class="nuevo-caso-nav">
+
+    <a routerLink="/dashboard">
+      Dashboard
+    </a>
+
+    <a routerLink="/casos">
+      Casos
+    </a>
+
+    <a routerLink="/seguimientos">
+      Seguimientos
+    </a>
+
+    <a routerLink="/reportes">
+      Reportes
+    </a>
+
+    <a routerLink="/usuarios">
+      Usuarios
+    </a>
+
+  </nav>
 
 
   <main class="nuevo-caso-content">

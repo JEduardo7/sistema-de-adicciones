@@ -45,16 +45,6 @@
 
       <button
         type="button"
-        class="back-dashboard-button"
-        (click)="volverDashboard()"
-      >
-        <span class="back-icon">←</span>
-        Dashboard
-      </button>
-
-
-      <button
-        type="button"
         class="logout-button"
         (click)="cerrarSesion()"
       >
@@ -64,6 +54,31 @@
     </div>
 
   </header>
+
+
+  <nav class="casos-nav">
+
+    <a routerLink="/dashboard">
+      Dashboard
+    </a>
+
+    <a class="active">
+      Casos
+    </a>
+
+    <a routerLink="/seguimientos">
+      Seguimientos
+    </a>
+
+    <a routerLink="/reportes">
+      Reportes
+    </a>
+
+    <a routerLink="/usuarios">
+      Usuarios
+    </a>
+
+  </nav>
 
 
   <main class="casos-content">

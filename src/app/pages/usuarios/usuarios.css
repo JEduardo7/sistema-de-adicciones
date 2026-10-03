@@ -83,14 +83,23 @@
 }
 
 
-/* BOTONES DEL ENCABEZADO */
+/* BOTÓN CERRAR SESIÓN */
 
-.back-button,
 .logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   height: 34px;
   min-height: 34px;
 
+  padding: 0 12px;
+
+  border: 1px solid #cbd8e3;
   border-radius: 5px;
+
+  background: #ffffff;
+  color: #b33a3a;
 
   font-size: 11px;
   font-weight: 600;
@@ -103,48 +112,57 @@
     color 0.2s ease;
 }
 
-.back-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 6px;
-
-  padding: 0 13px;
-
-  border: 1px solid #cbd8e3;
-
-  background: #ffffff;
-  color: #526273;
-}
-
-.back-button:hover {
-  border-color: #b8c9d6;
-  background: #f7fafc;
-}
-
-.back-button span {
-  font-size: 15px;
-  line-height: 1;
-}
-
-.logout-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0 12px;
-
-  border: 1px solid #cbd8e3;
-
-  background: #ffffff;
-  color: #b33a3a;
-}
-
 .logout-button:hover {
   background: #fff5f5;
   border-color: #e3b5b5;
   color: #a52828;
+}
+
+
+/* NAVEGACIÓN */
+
+.usuarios-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 36px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #dce5eb;
+}
+
+.usuarios-nav a {
+  display: flex;
+  align-items: center;
+
+  height: 42px;
+
+  padding: 0 18px;
+
+  border-bottom: 2px solid transparent;
+
+  color: #526273;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.usuarios-nav a:hover {
+  background: #f7fafc;
+  color: #147c9c;
+}
+
+.usuarios-nav a.active {
+  border-bottom-color: #147c9c;
+  color: #147c9c;
 }
 
 
@@ -153,7 +171,7 @@
 .usuarios-content {
   max-width: 1250px;
   margin: 0 auto;
-  padding: 30px 36px 45px;
+  padding: 24px 36px 45px;
 }
 
 
@@ -445,8 +463,14 @@ tbody tr:last-child td {
     padding: 18px 25px;
   }
 
+  .usuarios-nav {
+    justify-content: center;
+    padding: 0 25px;
+    overflow-x: auto;
+  }
+
   .usuarios-content {
-    padding: 28px 25px 35px;
+    padding: 24px 25px 35px;
   }
 }
 
@@ -469,13 +493,21 @@ tbody tr:last-child td {
     min-width: 110px;
   }
 
-  .back-button,
   .logout-button {
     flex: 1;
   }
 
+  .usuarios-nav {
+    justify-content: flex-start;
+    padding: 0 12px;
+  }
+
+  .usuarios-nav a {
+    padding: 0 14px;
+  }
+
   .usuarios-content {
-    padding: 25px 18px;
+    padding: 24px 18px;
   }
 
   .panel-title {

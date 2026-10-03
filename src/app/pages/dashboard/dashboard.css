@@ -140,6 +140,7 @@
 .dashboard-nav {
   display: flex;
   align-items: center;
+  justify-content: center;
 
   padding: 0 36px;
 
@@ -188,14 +189,14 @@
 
   margin: 0 auto;
 
-  padding: 34px 0 45px;
+  padding: 24px 0 45px;
 }
 
 
 /* INTRODUCCIÓN */
 
 .welcome-section {
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .section-label {
@@ -255,7 +256,7 @@
 
   gap: 18px;
 
-  margin-bottom: 26px;
+  margin-bottom: 30px;
 }
 
 .summary-card {
@@ -351,7 +352,6 @@
 .panel-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
   padding: 21px 24px;
 
@@ -386,27 +386,6 @@
   color: #718096;
 
   font-size: 12px;
-}
-
-.panel-header button {
-  padding: 10px 17px;
-
-  border: none;
-  border-radius: 6px;
-
-  background: #167c9c;
-  color: #ffffff;
-
-  font-size: 11px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: background 0.2s ease;
-}
-
-.panel-header button:hover {
-  background: #126a86;
 }
 
 
@@ -536,6 +515,8 @@
   }
 
   .dashboard-nav {
+    justify-content: center;
+
     padding: 0 25px;
 
     overflow-x: auto;
@@ -544,7 +525,7 @@
   .dashboard-content {
     width: calc(100% - 40px);
 
-    padding: 28px 0 35px;
+    padding: 30px 0 35px;
   }
 
   .activity-item {
@@ -625,6 +606,8 @@
   }
 
   .dashboard-nav {
+    justify-content: flex-start;
+
     padding: 0 12px;
   }
 
@@ -646,10 +629,6 @@
     flex-direction: column;
 
     gap: 14px;
-  }
-
-  .panel-header button {
-    width: 100%;
   }
 
   .activity-list {

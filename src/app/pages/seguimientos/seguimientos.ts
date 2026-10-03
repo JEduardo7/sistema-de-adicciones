@@ -1,12 +1,12 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Seguimiento } from '../../services/seguimiento';
 import { Caso } from '../../services/caso';
 
 @Component({
   selector: 'app-seguimientos',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './seguimientos.html',
   styleUrl: './seguimientos.css',
 })
