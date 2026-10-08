@@ -1,59 +1,116 @@
-# Frontend
+# Sistema web para la gestión y seguimiento de casos de adicciones
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.7.
+Aplicación web desarrollada para apoyar la gestión y seguimiento de casos relacionados con el consumo de sustancias psicoactivas.
 
-## Development server
+El sistema permite registrar y consultar casos, realizar seguimientos, visualizar información e indicadores y gestionar el acceso de los usuarios según su rol.
 
-To start a local development server, run:
+## Tecnologías
+
+- Angular 22
+- TypeScript
+- HTML5
+- CSS3
+- Angular Router
+- HttpClient
+- JWT
+
+## Funcionalidades
+
+- Inicio de sesión.
+- Gestión de casos.
+- Registro y consulta de información de los casos.
+- Registro y consulta de seguimientos.
+- Dashboard con información general.
+- Reportes e indicadores.
+- Gestión de usuarios.
+- Control de acceso según el rol del usuario.
+
+## Roles
+
+### Administrador
+
+Puede gestionar los usuarios y acceder a la información general del sistema, incluyendo casos, seguimientos y reportes.
+
+### Profesional
+
+Puede registrar y consultar sus casos, registrar seguimientos y acceder a la información correspondiente a los casos bajo su responsabilidad.
+
+## Requisitos
+
+Para ejecutar el proyecto localmente se necesita:
+
+- Node.js
+- npm
+- Angular CLI
+
+## Instalación
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/JEduardo7/sistema-de-adicciones-frontend.git
+```
+
+Ingresar a la carpeta del proyecto:
+
+```bash
+cd sistema-de-adicciones-frontend
+```
+
+Instalar las dependencias:
+
+```bash
+npm install
+```
+
+## Ejecución
+
+Iniciar el servidor de desarrollo:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+La aplicación estará disponible en:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Compilación
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Para generar la versión de producción:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Backend
 
-## Running unit tests
+Este frontend se comunica con una API REST desarrollada con Spring Boot.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Repositorio del backend:
 
-```bash
-ng test
-```
+https://github.com/JEduardo7/sistema-de-adicciones-backend
 
-## Running end-to-end tests
+## Aplicación desplegada
 
-For end-to-end (e2e) testing, run:
+Frontend:
 
-```bash
-ng e2e
-```
+https://sistema-de-adicciones.vercel.app/
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Documentación de la API
 
-## Additional Resources
+Swagger:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+https://sistema-de-adicciones-api-rest.onrender.com/swagger-ui/index.html
+
+## Curso
+
+**Soluciones Web y Aplicaciones Distribuidas**
+
+Facultad de Ingeniería  
+Carrera de Ingeniería de Sistemas Computacionales
+
+Cajamarca – Perú  
+2026
