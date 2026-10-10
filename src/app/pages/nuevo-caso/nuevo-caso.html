@@ -1,35 +1,17 @@
+
 <div class="nuevo-caso-page">
 
   <header class="nuevo-caso-header">
-
     <div class="header-info">
-
-      <span class="header-label">
-        CASOS
-      </span>
-
-      <h1>
-        Registrar nuevo caso
-      </h1>
-
-      <p>
-        Ingrese la información correspondiente al nuevo caso
-      </p>
-
+      <span class="header-label">CASOS</span>
+      <h1>Registrar nuevo caso</h1>
+      <p>Ingrese la información correspondiente al nuevo caso</p>
     </div>
 
     <div class="header-actions">
-
       <div class="user-info">
-
-        <span class="user-role">
-          {{ rolActual }}
-        </span>
-
-        <strong>
-          {{ usuarioActual }}
-        </strong>
-
+        <span class="user-role">{{ rolActual }}</span>
+        <strong>{{ usuarioActual }}</strong>
       </div>
 
       <button
@@ -39,94 +21,49 @@
       >
         Cerrar sesión
       </button>
-
     </div>
-
   </header>
 
-
   <nav class="nuevo-caso-nav">
-
-    <a routerLink="/dashboard">
-      Dashboard
-    </a>
-
-    <a routerLink="/casos">
-      Casos
-    </a>
-
-    <a routerLink="/seguimientos">
-      Seguimientos
-    </a>
-
-    <a routerLink="/reportes">
-      Reportes
-    </a>
-
-    <a routerLink="/usuarios">
-      Usuarios
-    </a>
-
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/casos">Casos</a>
+    <a routerLink="/seguimientos">Seguimientos</a>
+    <a routerLink="/reportes">Reportes</a>
+    <a routerLink="/usuarios">Usuarios</a>
   </nav>
 
-
   <main class="nuevo-caso-content">
-
     <section class="form-panel">
 
       <div class="panel-title">
-
         <div>
-
-          <span class="section-label">
-            REGISTRO
-          </span>
-
-          <h2>
-            Datos del caso
-          </h2>
-
-          <p>
-            Complete la información solicitada para registrar el caso
-          </p>
-
+          <span class="section-label">REGISTRO</span>
+          <h2>Datos del caso</h2>
+          <p>Complete la información solicitada para registrar el caso</p>
         </div>
 
-        <span class="case-code">
-          {{ codigoCaso }}
-        </span>
-
+        <span class="case-code">{{ codigoCaso }}</span>
       </div>
 
-
       @if (mensajeError) {
-
-        <div class="error-message">
+        <div class="error-message" role="alert">
           {{ mensajeError }}
         </div>
-
       }
-
 
       <form
         class="caso-form"
         (ngSubmit)="guardarCaso()"
+        novalidate
       >
 
         <div class="form-section">
-
-          <h3>
-            Información personal
-          </h3>
+          <h3>Información personal</h3>
 
           <div class="form-grid">
 
             <div class="form-group">
-
-              <label for="codigoCaso">
-                Código del caso
-              </label>
-
+              <label for="codigoCaso">Código del caso</label>
               <input
                 id="codigoCaso"
                 name="codigoCaso"
@@ -134,87 +71,77 @@
                 [(ngModel)]="codigoCaso"
                 readonly
               />
-
             </div>
 
-
             <div class="form-group">
-
-              <label for="fechaRegistro">
-                Fecha de registro
-              </label>
-
+              <label for="fechaRegistro">Fecha de registro</label>
               <input
                 id="fechaRegistro"
                 name="fechaRegistro"
                 type="date"
                 [(ngModel)]="fechaRegistro"
+                [class.campo-invalido]="intentoGuardar && campoVacio(fechaRegistro)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(fechaRegistro)"
                 required
               />
-
+              @if (intentoGuardar && campoVacio(fechaRegistro)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="nombres">
-                Nombres
-              </label>
-
+              <label for="nombres">Nombres</label>
               <input
                 id="nombres"
                 name="nombres"
                 type="text"
                 [(ngModel)]="nombres"
                 placeholder="Ingrese los nombres"
+                [class.campo-invalido]="intentoGuardar && campoVacio(nombres)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(nombres)"
                 required
               />
-
+              @if (intentoGuardar && campoVacio(nombres)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="apellidos">
-                Apellidos
-              </label>
-
+              <label for="apellidos">Apellidos</label>
               <input
                 id="apellidos"
                 name="apellidos"
                 type="text"
                 [(ngModel)]="apellidos"
                 placeholder="Ingrese los apellidos"
+                [class.campo-invalido]="intentoGuardar && campoVacio(apellidos)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(apellidos)"
                 required
               />
-
+              @if (intentoGuardar && campoVacio(apellidos)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="documento">
-                Documento
-              </label>
-
+              <label for="documento">Documento</label>
               <input
                 id="documento"
                 name="documento"
                 type="text"
                 [(ngModel)]="documento"
                 placeholder="Ingrese el documento"
+                [class.campo-invalido]="intentoGuardar && campoVacio(documento)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(documento)"
                 required
               />
-
+              @if (intentoGuardar && campoVacio(documento)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="edad">
-                Edad
-              </label>
-
+              <label for="edad">Edad</label>
               <input
                 id="edad"
                 name="edad"
@@ -222,300 +149,214 @@
                 min="0"
                 [(ngModel)]="edad"
                 placeholder="Ingrese la edad"
+                [class.campo-invalido]="intentoGuardar && edad === null"
+                [attr.aria-invalid]="intentoGuardar && edad === null"
                 required
               />
-
+              @if (intentoGuardar && edad === null) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="sexo">
-                Sexo
-              </label>
-
+              <label for="sexo">Sexo</label>
               <select
                 id="sexo"
                 name="sexo"
                 [(ngModel)]="sexo"
+                [class.campo-invalido]="intentoGuardar && campoVacio(sexo)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(sexo)"
                 required
               >
-
-                <option value="">
-                  Seleccione una opción
-                </option>
-
-                <option value="MASCULINO">
-                  MASCULINO
-                </option>
-
-                <option value="FEMENINO">
-                  FEMENINO
-                </option>
-
+                <option value="">Seleccione una opción</option>
+                <option value="MASCULINO">MASCULINO</option>
+                <option value="FEMENINO">FEMENINO</option>
               </select>
-
+              @if (intentoGuardar && campoVacio(sexo)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
           </div>
-
         </div>
 
-
         @if (esAdministrador) {
-
           <div class="form-section">
-
-            <h3>
-              Responsable del caso
-            </h3>
+            <h3>Responsable del caso</h3>
 
             <div class="form-grid">
-
               <div class="form-group">
-
-                <label for="profesional">
-                  Profesional responsable
-                </label>
-
+                <label for="profesional">Profesional responsable</label>
                 <select
                   id="profesional"
                   name="profesional"
                   [(ngModel)]="profesional"
                   (ngModelChange)="cambiarProfesional()"
+                  [class.campo-invalido]="intentoGuardar && campoVacio(profesional)"
+                  [attr.aria-invalid]="intentoGuardar && campoVacio(profesional)"
                   required
                 >
-
-                  <option value="">
-                    Seleccione un profesional
-                  </option>
+                  <option value="">Seleccione un profesional</option>
 
                   @for (
                     profesionalItem of profesionales;
                     track profesionalItem.codigo
                   ) {
-
                     <option [value]="profesionalItem.codigo">
                       {{ profesionalItem.nombre }} — {{ profesionalItem.codigo }}
                     </option>
-
                   }
-
                 </select>
 
+                @if (intentoGuardar && campoVacio(profesional)) {
+                  <span class="campo-error">Este campo es obligatorio</span>
+                }
               </div>
-
             </div>
-
           </div>
-
         }
 
-
         <div class="form-section">
-
-          <h3>
-            Información relacionada al caso
-          </h3>
+          <h3>Información relacionada al caso</h3>
 
           <div class="form-grid">
 
             <div class="form-group">
-
-              <label for="sustanciaPrincipal">
-                Sustancia principal
-              </label>
-
+              <label for="sustanciaPrincipal">Sustancia principal</label>
               <input
                 id="sustanciaPrincipal"
                 name="sustanciaPrincipal"
                 type="text"
                 [(ngModel)]="sustanciaPrincipal"
                 placeholder="Ejemplo: Alcohol"
+                [class.campo-invalido]="intentoGuardar && campoVacio(sustanciaPrincipal)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(sustanciaPrincipal)"
                 required
               />
-
+              @if (intentoGuardar && campoVacio(sustanciaPrincipal)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="frecuenciaConsumo">
-                Frecuencia de consumo
-              </label>
-
+              <label for="frecuenciaConsumo">Frecuencia de consumo</label>
               <select
                 id="frecuenciaConsumo"
                 name="frecuenciaConsumo"
                 [(ngModel)]="frecuenciaConsumo"
+                [class.campo-invalido]="intentoGuardar && campoVacio(frecuenciaConsumo)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(frecuenciaConsumo)"
                 required
               >
-
-                <option value="">
-                  Seleccione una opción
-                </option>
-
-                <option value="Diario">
-                  Diario
-                </option>
-
-                <option value="Semanal">
-                  Semanal
-                </option>
-
-                <option value="Quincenal">
-                  Quincenal
-                </option>
-
-                <option value="Mensual">
-                  Mensual
-                </option>
-
-                <option value="Ocasional">
-                  Ocasional
-                </option>
-
+                <option value="">Seleccione una opción</option>
+                <option value="Diario">Diario</option>
+                <option value="Semanal">Semanal</option>
+                <option value="Quincenal">Quincenal</option>
+                <option value="Mensual">Mensual</option>
+                <option value="Ocasional">Ocasional</option>
               </select>
-
+              @if (intentoGuardar && campoVacio(frecuenciaConsumo)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="tiempoConsumo">
-                Tiempo de consumo
-              </label>
-
+              <label for="tiempoConsumo">Tiempo de consumo</label>
               <input
                 id="tiempoConsumo"
                 name="tiempoConsumo"
                 type="text"
                 [(ngModel)]="tiempoConsumo"
                 placeholder="Ejemplo: 2 años"
+                [class.campo-invalido]="intentoGuardar && campoVacio(tiempoConsumo)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(tiempoConsumo)"
                 required
               />
-
+              @if (intentoGuardar && campoVacio(tiempoConsumo)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="nivelRiesgo">
-                Nivel de riesgo
-              </label>
-
+              <label for="nivelRiesgo">Nivel de riesgo</label>
               <select
                 id="nivelRiesgo"
                 name="nivelRiesgo"
                 [(ngModel)]="nivelRiesgo"
+                [class.campo-invalido]="intentoGuardar && campoVacio(nivelRiesgo)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(nivelRiesgo)"
                 required
               >
-
-                <option value="">
-                  Seleccione una opción
-                </option>
-
-                <option value="Bajo">
-                  Bajo
-                </option>
-
-                <option value="Medio">
-                  Medio
-                </option>
-
-                <option value="Alto">
-                  Alto
-                </option>
-
+                <option value="">Seleccione una opción</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
               </select>
-
+              @if (intentoGuardar && campoVacio(nivelRiesgo)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group">
-
-              <label for="estado">
-                Estado
-              </label>
-
+              <label for="estado">Estado</label>
               <select
                 id="estado"
                 name="estado"
                 [(ngModel)]="estado"
                 required
               >
-
-                <option value="Activo">
-                  Activo
-                </option>
-
-                <option value="En seguimiento">
-                  En seguimiento
-                </option>
-
-                <option value="Cerrado">
-                  Cerrado
-                </option>
-
+                <option value="Activo">Activo</option>
+                <option value="En seguimiento">En seguimiento</option>
+                <option value="Cerrado">Cerrado</option>
               </select>
-
             </div>
 
           </div>
-
         </div>
 
-
         <div class="form-section">
-
-          <h3>
-            Información adicional
-          </h3>
+          <h3>Información adicional</h3>
 
           <div class="form-grid">
 
             <div class="form-group full-width">
-
-              <label for="diagnostico">
-                Diagnóstico
-              </label>
-
+              <label for="diagnostico">Diagnóstico</label>
               <textarea
                 id="diagnostico"
                 name="diagnostico"
                 [(ngModel)]="diagnostico"
                 rows="3"
                 placeholder="Ingrese el diagnóstico o situación identificada"
+                [class.campo-invalido]="intentoGuardar && campoVacio(diagnostico)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(diagnostico)"
                 required
               ></textarea>
-
+              @if (intentoGuardar && campoVacio(diagnostico)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
-
             <div class="form-group full-width">
-
-              <label for="observaciones">
-                Observaciones
-              </label>
-
+              <label for="observaciones">Observaciones</label>
               <textarea
                 id="observaciones"
                 name="observaciones"
                 [(ngModel)]="observaciones"
                 rows="4"
                 placeholder="Ingrese observaciones relevantes del caso"
+                [class.campo-invalido]="intentoGuardar && campoVacio(observaciones)"
+                [attr.aria-invalid]="intentoGuardar && campoVacio(observaciones)"
                 required
               ></textarea>
-
+              @if (intentoGuardar && campoVacio(observaciones)) {
+                <span class="campo-error">Este campo es obligatorio</span>
+              }
             </div>
 
           </div>
-
         </div>
 
-
         <div class="form-actions">
-
           <button
             type="button"
             class="cancel-button"
@@ -524,31 +365,20 @@
             Cancelar
           </button>
 
-
           <button
             type="submit"
             class="save-button"
             [disabled]="guardando"
           >
-
             @if (guardando) {
-
               Guardando...
-
             } @else {
-
               Guardar caso
-
             }
-
           </button>
-
         </div>
 
       </form>
-
     </section>
-
   </main>
-
 </div>
